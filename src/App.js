@@ -2,13 +2,16 @@ import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import router from "./routes/routing";
 import GlobalStyles from "./style/global";
+import TargetOptionProvider from "./context/targetOption";
 
 function App() {
   return (
-    <div className="App">
-      <GlobalStyles />
-      <RouterProvider router={router} />
-    </div>
+    <TargetOptionProvider>
+      <div className="App">
+        <GlobalStyles />
+        <RouterProvider router={router} />
+      </div>
+    </TargetOptionProvider>
   );
 }
 

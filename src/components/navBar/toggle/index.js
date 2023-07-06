@@ -1,90 +1,55 @@
-import { useSearchParams } from "react-router-dom";
 import { styled } from "styled-components";
 import { BsFillSuitHeartFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import ToggleOption from "./toggleOption";
+import { useState } from "react";
 
 const Toggle = () => {
-  // 클릭된 값을 param으로 전달
-  const [searchParams, setSearchParams] = useSearchParams();
+  // toggle1-first/second, toggle2-third/fourth 객체 만들어서 map 돌리는 것으로 로직 변경하기
+  const [ToggleList, setToggleList] = useState([
+    {
+      title: "TOGGLE1",
+      state: false,
+      children: [
+        { key: "first", content: "FIRST OPTION", isFocused: false },
+        { key: "second", content: "SECOND OPTION", isFocused: false },
+      ],
+    },
+    {
+      title: "TOGGLE2",
+      state: false,
+      children: [
+        { key: "third", content: "THIRD OPTION", isFocused: false },
+        { key: "fourth", content: "FOURTH OPTION", isFocused: false },
+      ],
+    },
+  ]);
 
-  // 하이라이트
-  const selectedHistory = localStorage.getItem("key");
-  const [targetIndex, setTargetIndex] = useState(
-    selectedHistory ? selectedHistory : false
-  );
-
-  const updateParam = (key, index) => {
-    setTargetIndex(index);
-    searchParams.set("key", key);
-    setSearchParams(searchParams);
+  const handleToggle = (index) => {
+    const NewList = [...ToggleList];
+    NewList[index].state = !NewList[index].state;
+    setToggleList(NewList);
   };
 
-  // 선택된 값 저장
-  useEffect(() => {
-    localStorage.setItem("key", targetIndex);
-  }, [targetIndex]);
-
-  const [isToggle1Open, setIsToggle1Open] = useState(false);
-  const [isToggle2Open, setIsToggle2Open] = useState(false);
-
-  const handleToggle = (toggle, setToggle) => {
-    setToggle(!toggle);
-  };
-
-  return (
-    <>
-      <S.ToggleContainer>
-        <S.Title isOpen={isToggle1Open}>
-          TOGGLE1
-          <BsFillSuitHeartFill
-            className="ToggleIcon"
-            onClick={() => handleToggle(isToggle1Open, setIsToggle1Open)}
-          />
-        </S.Title>
-        {isToggle1Open && (
-          <div>
-            <S.ToggleOption
-              isTarget={targetIndex === 1}
-              onClick={() => updateParam("first", 1)}
-            >
-              FIRST OPTION
-            </S.ToggleOption>
-            <S.ToggleOption
-              isTarget={targetIndex === 2}
-              onClick={() => updateParam("second", 2)}
-            >
-              SECOND OPTION
-            </S.ToggleOption>
-          </div>
-        )}
-      </S.ToggleContainer>
-      <S.ToggleContainer>
-        <S.Title isOpen={isToggle2Open}>
-          TOGGLE2
-          <BsFillSuitHeartFill
-            className="ToggleIcon"
-            onClick={() => handleToggle(isToggle2Open, setIsToggle2Open)}
-          />
-        </S.Title>
-        {isToggle2Open && (
-          <div>
-            <S.ToggleOption
-              isTarget={targetIndex === 3}
-              onClick={() => updateParam("third", 3)}
-            >
-              THIRD OPTION
-            </S.ToggleOption>
-            <S.ToggleOption
-              isTarget={targetIndex === 4}
-              onClick={() => updateParam("fourth", 4)}
-            >
-              FOURTH OPTION
-            </S.ToggleOption>
-          </div>
-        )}
-      </S.ToggleContainer>
-    </>
-  );
+  if (ToggleList)
+    return (
+      <>
+        {ToggleList.map((toggle, i) => (
+          <S.ToggleContainer>
+            <S.Title isOpen={toggle.state}>
+              {toggle.title}
+              <BsFillSuitHeartFill
+                className="ToggleIcon"
+                onClick={() => handleToggle(i)}
+              />
+            </S.Title>
+            <ToggleOption
+              toggleOptionList={toggle.children}
+              isOpen={toggle.state}
+            />
+          </S.ToggleContainer>
+        ))}
+      </>
+    );
 };
 
 export default Toggle;
@@ -100,18 +65,10 @@ const Title = styled.ul`
   font-weight: bold;
   margin: 20px;
   .ToggleIcon {
-    color: #ff9eaa;
+    color: salmon;
     margin-left: 10px;
     transform: rotate(${(props) => (props.isOpen ? "180deg" : "0deg")});
   }
 `;
 
-const ToggleOption = styled.li`
-  font-size: 16px;
-  font-weight: 300;
-  margin: 20px;
-  background-color: ${(props) =>
-    props.isTarget ? "rgba(255, 158, 170, 0.4)" : "transparent"};
-`;
-
-const S = { ToggleContainer, Title, ToggleOption };
+const S = { ToggleContainer, Title };
