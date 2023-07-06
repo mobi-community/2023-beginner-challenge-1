@@ -1,7 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import NavBar from "../components/navBar";
 import Header from "../components/header";
-import { styled } from "styled-components";
 import useParamKey from "../hooks/useParamKey";
 
 const MainPage = () => {

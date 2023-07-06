@@ -14,11 +14,13 @@ const ToggleOption = ({ toggleOptionList, isOpen }) => {
     searchParams.set("key", key);
     setSearchParams(searchParams);
   };
+
   if (isOpen)
     return (
       <>
-        {toggleOptionList.map((option) => (
+        {toggleOptionList.map((option, i) => (
           <S.EachToggleOption
+            key={i}
             onClick={() => updateParam(option.key)}
             isTarget={option.key === targetOption}
           >

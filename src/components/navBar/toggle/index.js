@@ -3,63 +3,39 @@ import { BsFillSuitHeartFill } from "react-icons/bs";
 import ToggleOption from "./toggleOption";
 import { useState } from "react";
 
-const Toggle = () => {
+const Toggle = ({ toggle }) => {
   // toggle1-first/second, toggle2-third/fourth 객체 만들어서 map 돌리는 것으로 로직 변경하기
-  const [ToggleList, setToggleList] = useState([
-    {
-      title: "TOGGLE1",
-      state: false,
-      children: [
-        { key: "first", content: "FIRST OPTION", isFocused: false },
-        { key: "second", content: "SECOND OPTION", isFocused: false },
-      ],
-    },
-    {
-      title: "TOGGLE2",
-      state: false,
-      children: [
-        { key: "third", content: "THIRD OPTION", isFocused: false },
-        { key: "fourth", content: "FOURTH OPTION", isFocused: false },
-      ],
-    },
-  ]);
 
-  const handleToggle = (index) => {
-    const NewList = [...ToggleList];
-    NewList[index].state = !NewList[index].state;
-    setToggleList(NewList);
-  };
+  const [isToggleOpen, setIsToggleOpen] = useState(false);
 
-  if (ToggleList)
+  if (toggle)
     return (
       <>
-        {ToggleList.map((toggle, i) => (
-          <S.ToggleContainer>
-            <S.Title isOpen={toggle.state}>
-              {toggle.title}
-              <BsFillSuitHeartFill
-                className="ToggleIcon"
-                onClick={() => handleToggle(i)}
-              />
-            </S.Title>
-            <ToggleOption
-              toggleOptionList={toggle.children}
-              isOpen={toggle.state}
+        <S.ToggleContainer>
+          <S.Title isOpen={isToggleOpen}>
+            {toggle.title}
+            <BsFillSuitHeartFill
+              className="ToggleIcon"
+              onClick={() => setIsToggleOpen((prev) => !prev)}
             />
-          </S.ToggleContainer>
-        ))}
+          </S.Title>
+          <ToggleOption
+            toggleOptionList={toggle.children}
+            isOpen={isToggleOpen}
+          />
+        </S.ToggleContainer>
       </>
     );
 };
 
 export default Toggle;
 
-const ToggleContainer = styled.div`
+const ToggleContainer = styled.ul`
   margin: 50px;
   list-style: none;
 `;
 
-const Title = styled.ul`
+const Title = styled.div`
   padding: 0px;
   font-size: 20px;
   font-weight: bold;

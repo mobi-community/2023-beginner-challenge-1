@@ -12,7 +12,7 @@ const useParamKey = (key) => {
     fourth: <FourthOption />,
   };
 
-  return key ? Contents[key] : <S.HOME>HOME</S.HOME>;
+  return Contents[key] ? Contents[key] : <S.HOME>HOME</S.HOME>;
 };
 
 export default useParamKey;

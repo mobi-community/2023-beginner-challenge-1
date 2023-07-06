@@ -1,10 +1,13 @@
 import { styled } from "styled-components";
 import Toggle from "./toggle";
+import { TOGGLELIST } from "../../consts/CONSTS";
 
 const NavBar = () => {
   return (
     <S.Container>
-      <Toggle />
+      {TOGGLELIST.map((toggle, i) => (
+        <Toggle key={i} toggle={toggle} />
+      ))}
     </S.Container>
   );
 };
