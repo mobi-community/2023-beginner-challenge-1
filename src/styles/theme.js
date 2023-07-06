@@ -6,6 +6,11 @@ const COLOR = {
   common: {
     white: '#FFF',
     black: '#000',
+    gray: {
+      100: 'rgb(50, 50, 50)',
+      200: 'rgb(80, 80, 80)',
+      300: 'rgb(110, 110, 110)',
+    },
   },
 }
 
