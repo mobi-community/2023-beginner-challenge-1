@@ -15,15 +15,15 @@ export const router = createBrowserRouter([
         element: <DashBoardPage />,
       },
       {
-        path: '/order',
+        path: '/order/:page',
         element: <OrderPage />,
       },
       {
-        path: '/stock',
+        path: '/stock/:page',
         element: <StockPage />,
       },
       {
-        path: '/user',
+        path: '/user/:page',
         element: <UserPage />,
       },
     ],

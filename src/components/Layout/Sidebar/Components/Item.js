@@ -1,3 +1,4 @@
+import { useLocation, useNavigate } from 'react-router'
 import {
   FlexCenterCSS,
   HoverBoxCSS,
@@ -10,11 +11,18 @@ import { styled } from 'styled-components'
 import Icons from '../../../Icons/Icons'
 
 export default function MenuItem({ item }) {
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const { icons, title, contents } = item
   const [isOpenToggle, setIsOpenToggle] = useState(false)
 
   const onClickTitle = () => {
     setIsOpenToggle((prev) => !prev)
+  }
+
+  const onClickPage = (path) => {
+    navigate(path)
   }
 
   return (
@@ -25,14 +33,21 @@ export default function MenuItem({ item }) {
         {contents.length > 0 && (
           <S.AnimatedIcons
             name={faChevronDown}
-            isOpen={isOpenToggle}
+            isopen={isOpenToggle}
             size='2xs'
           />
         )}
       </S.ItemWrap>
       <S.ContentWrap>
         {isOpenToggle &&
-          contents.map((content) => <div key={content}>{content}</div>)}
+          contents.map(({ page, path }) => (
+            <S.Content
+              key={path}
+              onClick={() => onClickPage(path)}
+              isthispage={path === location.pathname}>
+              {page}
+            </S.Content>
+          ))}
       </S.ContentWrap>
     </S.Wrapper>
   )
@@ -55,7 +70,7 @@ const ItemWrap = styled.div`
 const AnimatedIcons = styled(Icons)`
   margin-left: auto;
   transition: transform 0.4s ease;
-  transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
+  transform: ${({ isopen }) => (isopen ? 'rotate(180deg)' : 'rotate(0deg)')};
 
   &:active {
     animation: ${RotateAnimation} 0.3s linear;
@@ -67,20 +82,20 @@ const ContentWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
   color: ${({ theme }) => theme.COLOR.common.gray[200]};
+`
 
-  & > div {
-    height: 3rem;
-    width: 100%;
-    ${FlexCenterCSS}
+const Content = styled.div`
+  height: 3.5rem;
+  width: 100%;
+  ${FlexCenterCSS}
+  font-size: 1.4rem;
+  background-color: ${({ theme, isthispage }) =>
+    isthispage && theme.COLOR.hover};
 
-    font-size: 1.4rem;
-
-    &:hover {
-      ${HoverBoxCSS}
-    }
+  &:hover {
+    ${HoverBoxCSS}
   }
 `
 
-const S = { Wrapper, ItemWrap, ContentWrap, AnimatedIcons }
+const S = { Wrapper, ItemWrap, ContentWrap, AnimatedIcons, Content }

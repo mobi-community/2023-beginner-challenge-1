@@ -1,7 +1,7 @@
 import * as S from './Sidebar.style'
 
 import Image from '../../Image/Image'
-import Menu from './Components/Menu'
+import Menu from './components/Menu'
 
 export default function Sidebar() {
   return (
