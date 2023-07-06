@@ -5,7 +5,7 @@ import MenuItem from './Item'
 
 export default function Menu() {
   const location = useLocation()
-  const nowTitle = location.pathname.split('/')[1]
+  const nowTitle = location.pathname.split('/')[1] // 현재 url 상 title ( '' | 'user' | 'order' | 'stock' )
 
   return (
     <S.Wrapper>
@@ -17,7 +17,7 @@ export default function Menu() {
               <MenuItem
                 key={item.title}
                 item={item}
-                nowTitle={nowTitle === item.url}
+                isNowTitle={nowTitle === item.url}
               />
             ))}
           </div>

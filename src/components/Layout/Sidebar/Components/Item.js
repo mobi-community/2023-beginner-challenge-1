@@ -10,12 +10,12 @@ import { useState } from 'react'
 import { styled } from 'styled-components'
 import Icons from '../../../Icons/Icons'
 
-export default function MenuItem({ item, nowTitle }) {
+export default function MenuItem({ item, isNowTitle }) {
   const { icons, title, url, contents } = item
 
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const [isOpenToggle, setIsOpenToggle] = useState(nowTitle)
+  const [isOpenToggle, setIsOpenToggle] = useState(isNowTitle) // 현재 title과 일치하다면 토굴이 처음부터 열려있도록
 
   const onClickTitle = () => {
     if (contents.length === 0) {
