@@ -13,12 +13,13 @@ export const MENU = [
     items: [
       {
         title: '대시보드',
+        url: '/',
         icons: <Icons name={faChessBoard} />,
         contents: [],
       },
       {
         title: '사용자 관리',
-        url: '/user',
+        url: 'user',
         icons: <Icons name={faUser} />,
         contents: [
           {
@@ -33,7 +34,7 @@ export const MENU = [
       },
       {
         title: '주문 관리',
-        url: '/order',
+        url: 'order',
         icons: <Icons name={faBagShopping} />,
         contents: [
           {
@@ -56,7 +57,7 @@ export const MENU = [
       },
       {
         title: '재고 관리',
-        url: '/stock',
+        url: 'stock',
         icons: <Icons name={faBoxOpen} />,
         contents: [
           {

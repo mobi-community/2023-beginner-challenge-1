@@ -10,14 +10,17 @@ import { useState } from 'react'
 import { styled } from 'styled-components'
 import Icons from '../../../Icons/Icons'
 
-export default function MenuItem({ item }) {
-  const navigate = useNavigate()
-  const location = useLocation()
+export default function MenuItem({ item, nowTitle }) {
+  const { icons, title, url, contents } = item
 
-  const { icons, title, contents } = item
-  const [isOpenToggle, setIsOpenToggle] = useState(false)
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const [isOpenToggle, setIsOpenToggle] = useState(nowTitle)
 
   const onClickTitle = () => {
+    if (contents.length === 0) {
+      return navigate(url)
+    }
     setIsOpenToggle((prev) => !prev)
   }
 
@@ -27,7 +30,9 @@ export default function MenuItem({ item }) {
 
   return (
     <S.Wrapper>
-      <S.ItemWrap onClick={onClickTitle}>
+      <S.ItemWrap
+        onClick={onClickTitle}
+        isthispage={url === pathname}>
         <span>{icons}</span>
         <span>{title}</span>
         {contents.length > 0 && (
@@ -44,7 +49,7 @@ export default function MenuItem({ item }) {
             <S.Content
               key={path}
               onClick={() => onClickPage(path)}
-              isthispage={path === location.pathname}>
+              isthispage={path === pathname}>
               {page}
             </S.Content>
           ))}
@@ -61,6 +66,8 @@ const ItemWrap = styled.div`
   align-items: center;
   padding: 2rem;
   gap: 2rem;
+  background-color: ${({ theme, isthispage }) =>
+    isthispage && theme.COLOR.hover};
 
   &:hover {
     ${HoverBoxCSS}
