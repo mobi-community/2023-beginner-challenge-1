@@ -8,7 +8,7 @@ const Toggle = ({ toggle }) => {
 
   // 클릭된 값을 param으로 전달
   const [searchParams, setSearchParams] = useSearchParams();
-  const activatedToggle = searchParams.get("title");
+  let activatedToggle = searchParams.get("title");
 
   const [isToggleOpen, setIsToggleOpen] = useState(
     activatedToggle === toggle.title
