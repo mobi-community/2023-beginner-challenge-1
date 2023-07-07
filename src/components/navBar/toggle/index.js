@@ -6,10 +6,13 @@ import { useSearchParams } from "react-router-dom";
 const Toggle = ({ toggle }) => {
   // toggle1-first/second, toggle2-third/fourth 객체 만들어서 map 돌리는 것으로 로직 변경하기
 
-  const [isToggleOpen, setIsToggleOpen] = useState(false);
-
   // 클릭된 값을 param으로 전달
   const [searchParams, setSearchParams] = useSearchParams();
+  const activatedToggle = searchParams.get("title");
+
+  const [isToggleOpen, setIsToggleOpen] = useState(
+    activatedToggle === toggle.title
+  );
 
   let targetOption = searchParams.get("key");
 
