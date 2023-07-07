@@ -1,34 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
+import { SidebarData } from "../Constants/SidebarData";
 
-const Sidebar = ({ data, activeMenu, handleMenuClick }) => {
-  const [sidebar, setSidebar] = useState(false);
+const Sidebar = () => {
+  const sidebar = true;
+  const location = useLocation();
+  const Current = location.pathname.split("/")[1];
+  const [activeMenu, setActiveMenu] = useState(() => localStorage.getItem("activeMenu") || null);
 
-  const showSidebar = () => setSidebar(!sidebar);
+  useEffect(() => {
+    localStorage.setItem("activeMenu", activeMenu);
+  }, [activeMenu]);
+
+  const handleMenuClick = (menuId) => {
+    setActiveMenu((prevMenu) => (prevMenu === menuId ? null : menuId));
+  };
 
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav>
           <NavIcon to="#">
-            <FaIcons.FaBars onClick={showSidebar} />
+            <FaIcons.FaBars />
           </NavIcon>
         </Nav>
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
             <NavIcon to="#">
-              <AiIcons.AiOutlineClose onClick={showSidebar} />
+              <AiIcons.AiOutlineClose />
             </NavIcon>
-            {data.map((item, index) => {
+            {SidebarData.map((title, path, subNav) => {
               return (
                 <SubMenu
-                  item={item}
-                  key={index}
+                  item={title}
+                  key={path}
+                  currentPath={Current === subNav.path}
                   activeMenu={activeMenu}
                   handleMenuClick={handleMenuClick}
                 />

@@ -2,38 +2,42 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const SubMenu = ({ item, activeMenu, handleMenuClick }) => {
-  const [subnav, setSubnav] = useState(false);
+const SubMenu = ({ item, currentPath, activeMenu, handleMenuClick }) => {
+  const [subnav, setSubnav] = useState(currentPath || activeMenu === item.path);
 
   const showSubnav = () => setSubnav(!subnav);
+
+  const handleClick = () => {
+    if (item.subNav) {
+      showSubnav();
+    }
+    handleMenuClick(item.path);
+  };
 
   return (
     <>
       <SidebarLink
         to={item.path}
-        onClick={() => {
-          if (item.subNav) {
-            showSubnav();
-          }
-          handleMenuClick(item.path);
-        }}
-        active={activeMenu === item.path}
+        onClick={handleClick}
+        active={activeMenu === item.path ? "true" : undefined}
       >
         <div>
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>
         </div>
-        <div>{item.subNav && subnav ? item.iconOpened : item.subNav ? item.iconClosed : null}</div>
+        <div>{item.subNav && <>{subnav ? item.iconOpened : item.iconClosed}</>}</div>
       </SidebarLink>
       {subnav &&
-        item.subNav.map((subItem, index) => {
-          return (
-            <DropdownLink to={subItem.path} key={index} active={activeMenu === subItem.path}>
-              {subItem.icon}
-              <SidebarLabel>{subItem.title}</SidebarLabel>
-            </DropdownLink>
-          );
-        })}
+        item.subNav.map((subItem, index) => (
+          <DropdownLink
+            to={subItem.path}
+            key={index}
+            active={activeMenu === item.path ? "true" : undefined}
+          >
+            {subItem.icon}
+            <SidebarLabel>{subItem.title}</SidebarLabel>
+          </DropdownLink>
+        ))}
     </>
   );
 };

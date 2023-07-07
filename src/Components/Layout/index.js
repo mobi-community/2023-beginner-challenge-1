@@ -1,39 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
 import { Outlet } from "react-router";
 import { styled } from "styled-components";
 import Sidebar from "../Sidebar";
-import { SidebarData } from "../SidebarData";
 
 const Layout = () => {
-  const [activeMenu, setActiveMenu] = useState(null);
-  const location = useLocation();
-
-  useEffect(() => {
-    const savedActiveMenu = localStorage.getItem("activeMenu");
-    setActiveMenu(savedActiveMenu);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("activeMenu", activeMenu);
-  }, [activeMenu]);
-
-  const handleMenuClick = (menuId) => {
-    if (activeMenu === menuId) {
-      setActiveMenu(null);
-    } else {
-      setActiveMenu(menuId);
-    }
-  };
-
-  useEffect(() => {
-    setActiveMenu(null);
-  }, [location]);
-
   return (
     <Wrapper>
       <SidebarWrapper>
-        <Sidebar data={SidebarData} activeMenu={activeMenu} handleMenuClick={handleMenuClick} />
+        <Sidebar />
       </SidebarWrapper>
       <Outlet />
     </Wrapper>
