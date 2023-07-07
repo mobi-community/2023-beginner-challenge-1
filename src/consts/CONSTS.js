@@ -1,16 +1,16 @@
 export const TOGGLELIST = [
   {
-    title: "TOGGLE1",
+    title: "user",
     children: [
-      { key: "first", content: "FIRST OPTION" },
-      { key: "second", content: "SECOND OPTION" },
+      { key: "edit", content: "Edit Account" },
+      { key: "delete", content: "Delete Account" },
     ],
   },
   {
-    title: "TOGGLE2",
+    title: "product",
     children: [
-      { key: "third", content: "THIRD OPTION" },
-      { key: "fourth", content: "FOURTH OPTION" },
+      { key: "list", content: "Product List" },
+      { key: "order", content: "Order Product" },
     ],
   },
 ];

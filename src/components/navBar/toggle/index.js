@@ -1,12 +1,23 @@
 import { styled } from "styled-components";
 import { BsFillSuitHeartFill } from "react-icons/bs";
-import ToggleOption from "./toggleOption";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const Toggle = ({ toggle }) => {
   // toggle1-first/second, toggle2-third/fourth 객체 만들어서 map 돌리는 것으로 로직 변경하기
 
   const [isToggleOpen, setIsToggleOpen] = useState(false);
+
+  // 클릭된 값을 param으로 전달
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  let targetOption = searchParams.get("key");
+
+  const updateParam = (title, key) => {
+    searchParams.set("title", title);
+    searchParams.set("key", key);
+    setSearchParams(searchParams);
+  };
 
   if (toggle)
     return (
@@ -19,10 +30,16 @@ const Toggle = ({ toggle }) => {
               onClick={() => setIsToggleOpen((prev) => !prev)}
             />
           </S.Title>
-          <ToggleOption
-            toggleOptionList={toggle.children}
-            isOpen={isToggleOpen}
-          />
+          {isToggleOpen &&
+            toggle.children.map((option, i) => (
+              <S.EachToggleOption
+                key={i}
+                onClick={() => updateParam(toggle.title, option.key)}
+                isTarget={option.key === targetOption}
+              >
+                {option.content}
+              </S.EachToggleOption>
+            ))}
         </S.ToggleContainer>
       </>
     );
@@ -47,4 +64,12 @@ const Title = styled.div`
   }
 `;
 
-const S = { ToggleContainer, Title };
+const EachToggleOption = styled.li`
+  font-size: 16px;
+  font-weight: 300;
+  margin: 20px;
+  background-color: ${(props) =>
+    props.isTarget ? "rgba(255, 158, 170, 0.4)" : "transparent"};
+`;
+
+const S = { ToggleContainer, Title, EachToggleOption };

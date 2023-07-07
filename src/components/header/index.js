@@ -1,21 +1,9 @@
-import { useSearchParams } from "react-router-dom";
 import { styled } from "styled-components";
-import { useTargetOption } from "../../context/targetOption";
 
 const Header = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { setTargetOption } = useTargetOption();
-
-  const updateParam = (key) => {
-    searchParams.set("key", key);
-    localStorage.setItem("key", key);
-    setSearchParams(searchParams);
-    setTargetOption(key);
-  };
-
   return (
     <S.Container>
-      <div onClick={() => updateParam("HOME")}>🫠THIS IS A HEADER🫠</div>
+      <div>🫠THIS IS AN ANDMIN PAGE🫠</div>
     </S.Container>
   );
 };

@@ -1,18 +1,23 @@
 import { styled } from "styled-components";
-import FirstOption from "../atoms/toggle1/first-option";
-import SecondOption from "../atoms/toggle1/second-option";
-import FourthOption from "../atoms/toggle2/fourth-option";
-import ThirdOption from "../atoms/toggle2/third-option";
+import OrderProduct from "../atoms/product/orderProduct";
+import ProductList from "../atoms/product/productList";
+import EditAccount from "../atoms/user/editAccount";
+import DeleteAccount from "../atoms/user/deleteAccount";
 
-const useParamKey = (key) => {
-  const Contents = {
-    first: <FirstOption />,
-    second: <SecondOption />,
-    third: <ThirdOption />,
-    fourth: <FourthOption />,
+const useParamKey = (title, key) => {
+  console.log("title, key", title, key);
+  const CONTENT = {
+    product: {
+      order: <OrderProduct />,
+      list: <ProductList />,
+    },
+    user: {
+      edit: <EditAccount />,
+      delete: <DeleteAccount />,
+    },
   };
 
-  return Contents[key] ? Contents[key] : <S.HOME>HOME</S.HOME>;
+  return CONTENT[title]?.[key] ? CONTENT[title]?.[key] : <S.HOME>HOME</S.HOME>;
 };
 
 export default useParamKey;

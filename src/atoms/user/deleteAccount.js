@@ -1,18 +1,18 @@
 import { styled } from "styled-components";
-import FIRSTIMG from "../img/1.jpg";
+import SECONDIMG from "../img/2.jpg";
 
-const FirstOption = () => {
+const DeleteAccount = () => {
   return (
     <>
-      <S.Title>FIRST OPTION</S.Title>
+      <S.Title>Delete Account</S.Title>
       <div>
-        <img src={FIRSTIMG} alt="firstImg" />
+        <img src={SECONDIMG} alt="secondImg" />
       </div>
     </>
   );
 };
 
-export default FirstOption;
+export default DeleteAccount;
 
 const Title = styled.div`
   margin: 50px;

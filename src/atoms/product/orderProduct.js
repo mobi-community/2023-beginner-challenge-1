@@ -1,18 +1,18 @@
 import { styled } from "styled-components";
-import SECONDIMG from "../img/2.jpg";
+import FOURTHIMG from "../img/4.jpg";
 
-const SecondOption = () => {
+const OrderProduct = () => {
   return (
     <>
-      <S.Title>SECOND OPTION</S.Title>
+      <S.Title>Order Product</S.Title>
       <div>
-        <img src={SECONDIMG} alt="secondImg" />
+        <img src={FOURTHIMG} alt="fourthImg" />
       </div>
     </>
   );
 };
 
-export default SecondOption;
+export default OrderProduct;
 
 const Title = styled.div`
   margin: 50px;
