@@ -1,1 +1,1 @@
-<img width="1074" alt="image" src="https://github.com/HyunseoKoo/Mobi_ToggleMenu/assets/117560047/eb3fc52e-d7c7-49ba-b52d-a6afd736553f">
+<img width="980" alt="image" src="https://github.com/mobi-community/2023-beginner-challenge-1/assets/117560047/9171ef67-dee9-41df-a500-aabfb2d5f675">
