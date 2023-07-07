@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import {
   FlexCenterCSS,
@@ -6,7 +7,6 @@ import {
 } from '../../../../styles/common'
 
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
 import { styled } from 'styled-components'
 import Icons from '../../../Icons/Icons'
 
@@ -16,6 +16,10 @@ export default function MenuItem({ item, isNowTitle }) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const [isOpenToggle, setIsOpenToggle] = useState(isNowTitle) // 현재 title과 일치하다면 토굴이 처음부터 열려있도록
+
+  useEffect(() => {
+    setIsOpenToggle(isNowTitle)
+  }, [isNowTitle])
 
   const onClickTitle = () => {
     if (contents.length === 0) {
