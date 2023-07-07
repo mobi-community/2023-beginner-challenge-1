@@ -57,7 +57,7 @@ const ToggleContainer = styled.ul`
 
 const Title = styled.div`
   padding: 0px;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: bold;
   margin: 20px;
   .ToggleIcon {
@@ -68,9 +68,11 @@ const Title = styled.div`
 `;
 
 const EachToggleOption = styled.li`
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 300;
   margin: 20px;
+  height: 40px;
+  line-height: 40px;
   background-color: ${(props) =>
     props.isTarget ? "rgba(255, 158, 170, 0.4)" : "transparent"};
 `;
