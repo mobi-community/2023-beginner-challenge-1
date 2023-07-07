@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -28,21 +28,26 @@ export default function Sidebar() {
         for(let i=0; i<sideMenu.length; i++) {
             listRef.current[i].style.maxHeight = '0';
         }
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    // useMemo(() => {
-        
-    // }, [prod, user])
+    useEffect(()=> {
+        for(let i=0; i<sideMenu.length; i++) {
+            if(sideMenu[i].children.includes(prod || user)) {
+                const style = listRef.current[i].style;
+                style.maxHeight =  `${listRef.current[i].scrollHeight}px`;
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const onClickMenuOpenState = (i, e, menu) => {
-        // 리액트 배열 안 특정 객체 값 변경
         let findIndex = sideMenu.findIndex((item) => item.name === e.target.title);
         let copiedMenu = [...sideMenu];
 
         const style = listRef.current[i].style;
 
         if(copiedMenu[findIndex].isOpen) {
-            console.log(copiedMenu[findIndex].isOpen);
             style.maxHeight = '0';
         } else if (!copiedMenu[findIndex].isOpen) {
             style.maxHeight =  `${listRef.current[i].scrollHeight}px`;
