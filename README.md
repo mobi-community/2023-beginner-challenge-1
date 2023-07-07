@@ -1,1 +1,0 @@
-# 2023-beginner-challenge-1
