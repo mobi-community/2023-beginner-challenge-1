@@ -1,0 +1,58 @@
+* {
+  font-family: "NanumSquare";
+}
+.nav {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 200px;
+  border-right: 1px solid #aaa;
+}
+
+.mainNav {
+  font-size: 18px;
+  font-weight: 500;
+  color: #444;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  margin-bottom: 10px;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 3px solid rgb(92, 110, 241);
+}
+
+.menuItem {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.li {
+  width: 100%;
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 0;
+}
+
+.li:hover {
+  font-weight: bold;
+}
+
+.active {
+  font-weight: bold;
+  color: rgb(79, 98, 244);
+  background-color: #eaeafd;
+}
