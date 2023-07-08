@@ -1,1 +1,1 @@
-https://github.com/mobi-community/2023-beginner-challenge-1/assets/117560047/843c7dec-a21e-4c02-a7c9-28d1d0980335
+https://github.com/mobi-community/2023-beginner-challenge-1/assets/117560047/5313bb77-8cda-4cea-9440-b40371ca117b
