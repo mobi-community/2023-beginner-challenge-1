@@ -9,47 +9,42 @@ import { SidebarData } from "../Constants/SidebarData";
 
 const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
-  const showSidebar = () => setSidebar(!sidebar);
-  //const sidebar = true
-
   const location = useLocation();
-  const Current = location.pathname.split("/")[1];
-  const [activeMenu, setActiveMenu] = useState(() => localStorage.getItem("activeMenu") || null);
+
+  const [activeMenu, setActiveMenu] = useState(location.pathname);
 
   useEffect(() => {
-    localStorage.setItem("activeMenu", activeMenu);
-  }, [activeMenu]);
-
-  const handleMenuClick = (menuId) => {
-    setActiveMenu((prevMenu) => (prevMenu === menuId ? null : menuId));
-  };
+    sessionStorage.setItem("activeMenu", location.pathname);
+    setActiveMenu(location.pathname);
+  }, [location]);
 
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav>
           <NavIcon to="#">
-            <FaIcons.FaBars onClick={showSidebar} />
+            <FaIcons.FaBars onClick={() => setSidebar(true)} />
           </NavIcon>
         </Nav>
-        <SidebarNav sidebar={sidebar}>
-          <SidebarWrap>
-            <NavIcon to="#">
-              <AiIcons.AiOutlineClose onClick={showSidebar} />
-            </NavIcon>
-            {SidebarData.map((title, path, subNav) => {
-              return (
-                <SubMenu
-                  item={title}
-                  key={path}
-                  currentPath={Current === subNav.path}
-                  activeMenu={activeMenu}
-                  handleMenuClick={handleMenuClick}
-                />
-              );
-            })}
-          </SidebarWrap>
-        </SidebarNav>
+        {sidebar && (
+          <SidebarNav>
+            <SidebarWrap>
+              <NavIcon to="#">
+                <AiIcons.AiOutlineClose onClick={() => setSidebar(false)} />
+              </NavIcon>
+              {SidebarData.map((data, index) => {
+                return (
+                  <SubMenu
+                    item={data}
+                    key={index}
+                    activeMenu={activeMenu}
+                    setActiveMenu={setActiveMenu}
+                  />
+                );
+              })}
+            </SidebarWrap>
+          </SidebarNav>
+        )}
       </IconContext.Provider>
     </>
   );
@@ -82,7 +77,7 @@ const SidebarNav = styled.nav`
   justify-content: center;
   position: fixed;
   top: 0;
-  left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
+  left: 0;
   transition: 350ms;
   z-index: 10;
   overflow-y: auto;
