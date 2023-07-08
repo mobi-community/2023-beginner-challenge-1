@@ -1,4 +1,4 @@
-import { MENU } from "consts/route";
+import { MENU } from "consts/menu";
 import navi from "../Nav/nav.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ const Navigation = () => {
   };
 
   const handleMenuClick = (path) => {
-    // 선택 유지
+    // 선택
     setMenu((prevMenu) =>
       prevMenu.map((menuItem) => ({
         ...menuItem,
