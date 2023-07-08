@@ -11,7 +11,7 @@ export default function Sidebar() {
             path: '/product',
             isOpen: false,
             children: [
-                '딸기', '바나나', '오렌지'
+                '과일', '채소', '잡곡'
             ],
         },
         {
@@ -19,7 +19,7 @@ export default function Sidebar() {
             path: '/signUp',
             isOpen: false,
             children: [
-                '고라니', '너구리', '족제비'
+                '회원가입', '개인정보 수정', '비밀번호 변경'
             ],
         },
     ]);
@@ -68,12 +68,10 @@ export default function Sidebar() {
                     <S.MenuItemUl isOpen={menu.isOpen} ref={(element) => listRef.current[i] = element}>
                         {menu.children.map((item)=>(
                             <S.MenuItemLink to={`${menu.path}/${item}`}>
-                                <S.MenuItem 
-                                    key={item.name}
-                                    style={{
-                                    // "background-color": item === prod || item === user ? 'beige' : 'none',
-                                    boxShadow: item === prod || item === user ? "5px 5px 5px gray" : 'none',
-                                }}>
+                                <S.MenuItem
+                                    key={item}
+                                    currentMenu={item === prod || item === user}
+                                >
                                     {item}
                                 </S.MenuItem>
                             </S.MenuItemLink>
@@ -91,7 +89,7 @@ const SidebarContainer = styled.aside`
     box-sizing: border-box;
     width: 200px;
     height: calc(100vh - 30px);
-    background-color: #d9d9d9;
+    border-right: solid 1px #eaeaea;
     display: flex;
     flex-direction: column;
 `;
@@ -105,6 +103,7 @@ const MenuTitleFlex = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-bottom: 10px;
 `;
 
 const MenuTitle = styled.div`
@@ -113,18 +112,26 @@ const MenuTitle = styled.div`
 
 const MenuOpenState = styled.button`
     font-size: 1rem;
+    background-color: white;
+    border: none;
+    cursor: pointer;
 `;
 
 const MenuItemUl = styled.ul`
     overflow: hidden;
     transition: max-height 0.3s ease-out;
-    height: 180px;
+    height: 300px;
 `;
 
 const MenuItem = styled.li`
     list-style: none;
     padding: 10px 0 10px 10px;
     font-size: 1rem;
+    color: gray;
+    background-color: ${({ currentMenu }) =>
+		currentMenu ? '#FFD1D1' : 'none'};
+    color: ${({ currentMenu }) =>
+		currentMenu ? 'black' : 'none'};
     &:hover {
         font-weight: bold;
         color: red;

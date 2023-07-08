@@ -5,7 +5,7 @@ export default function SignUp() {
     const {user} = useParams();
     return (
         <div>
-            SignUp {user && user}
+            SignUp : {user && user}
         </div>
     );
 }

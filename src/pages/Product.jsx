@@ -5,7 +5,7 @@ export default function Product() {
     const {prod} = useParams();
     return (
         <div>
-            Product {prod && prod}
+            Product : {prod && prod}
         </div>
     );
 }
