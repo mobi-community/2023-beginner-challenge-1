@@ -27,12 +27,6 @@ export default function Sidebar() {
     useEffect(()=> {
         for(let i=0; i<sideMenu.length; i++) {
             listRef.current[i].style.maxHeight = '0';
-
-            // if(listRef.current[i].style.maxHeight === `${listRef.current[i].scrollHeight}px`) {
-            //     let copiedMenu = [...sideMenu];
-            //     copiedMenu[i].isOpen = true;
-            //     setSideMenu(copiedMenu);
-            // } else return;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
