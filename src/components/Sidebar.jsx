@@ -41,15 +41,26 @@ export default function Sidebar() {
     }, []);
 
     useEffect(()=> {
-        const newButtonStateMenu = sideMenu.map((item, idx) => {
-            if(item.children.includes(prod || user)) {
-                const style = listRef.current[idx].style;
-                style.maxHeight =  `${listRef.current[idx].scrollHeight}px`;
-                return {...item, isOpen: true}
+        for(let i=0; i<sideMenu.length; i++) {
+            if(sideMenu[i].children.includes(prod || user)) {
+                const style = listRef.current[i].style;
+                style.maxHeight =  `${listRef.current[i].scrollHeight}px`;
+
+                let copiedMenu = [...sideMenu];
+                copiedMenu[i].isOpen = true;
+                setSideMenu(copiedMenu);
             }
-            return { ...item, isOpen: false}
-        })
-        setSideMenu(newButtonStateMenu)
+        }
+
+        // const newButtonStateMenu = sideMenu.map((item, idx) => {
+        //     if(item.children.includes(prod || user)) {
+        //         const style = listRef.current[idx].style;
+        //         style.maxHeight =  `${listRef.current[idx].scrollHeight}px`;
+        //         return {...item, isOpen: true}
+        //     }
+        //     return { ...item, isOpen: false}
+        // })
+        // setSideMenu(newButtonStateMenu)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [prod, user]);
 
@@ -67,6 +78,7 @@ export default function Sidebar() {
 
         copiedMenu[findIndex].isOpen = !menu.isOpen;
         setSideMenu(copiedMenu);
+        
     };
       
     return (
