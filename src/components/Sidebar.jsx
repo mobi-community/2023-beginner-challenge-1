@@ -27,6 +27,12 @@ export default function Sidebar() {
     useEffect(()=> {
         for(let i=0; i<sideMenu.length; i++) {
             listRef.current[i].style.maxHeight = '0';
+
+            // if(listRef.current[i].style.maxHeight === `${listRef.current[i].scrollHeight}px`) {
+            //     let copiedMenu = [...sideMenu];
+            //     copiedMenu[i].isOpen = true;
+            //     setSideMenu(copiedMenu);
+            // } else return;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -36,10 +42,15 @@ export default function Sidebar() {
             if(sideMenu[i].children.includes(prod || user)) {
                 const style = listRef.current[i].style;
                 style.maxHeight =  `${listRef.current[i].scrollHeight}px`;
+
+                let copiedMenu = [...sideMenu];
+                copiedMenu[i].isOpen = true;
+                setSideMenu(copiedMenu);
+
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [prod, user]);
 
     const onClickMenuOpenState = (i, e, menu) => {
         let findIndex = sideMenu.findIndex((item) => item.name === e.target.title);
