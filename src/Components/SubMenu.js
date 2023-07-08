@@ -27,7 +27,8 @@ const SubMenu = ({ item, currentPath, activeMenu, handleMenuClick }) => {
         </div>
         <div>{item.subNav && <>{subnav ? item.iconOpened : item.iconClosed}</>}</div>
       </SidebarLink>
-      {subnav &&
+      {item.subNav &&
+        subnav &&
         item.subNav.map((subItem, index) => (
           <DropdownLink
             to={subItem.path}
@@ -51,7 +52,7 @@ const SidebarLink = styled(Link)`
   align-items: center;
   padding: 20px;
   list-style: none;
-  height: 60px;
+  height: 50px;
   text-decoration: none;
   font-size: 18px;
 
@@ -68,7 +69,7 @@ const SidebarLabel = styled.span`
 
 const DropdownLink = styled(Link)`
   background: gray;
-  height: 60px;
+  height: 50px;
   padding-left: 3rem;
   display: flex;
   align-items: center;

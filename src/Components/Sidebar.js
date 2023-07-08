@@ -8,7 +8,10 @@ import { IconContext } from "react-icons/lib";
 import { SidebarData } from "../Constants/SidebarData";
 
 const Sidebar = () => {
-  const sidebar = true;
+  const [sidebar, setSidebar] = useState(false);
+  const showSidebar = () => setSidebar(!sidebar);
+  //const sidebar = true
+
   const location = useLocation();
   const Current = location.pathname.split("/")[1];
   const [activeMenu, setActiveMenu] = useState(() => localStorage.getItem("activeMenu") || null);
@@ -26,13 +29,13 @@ const Sidebar = () => {
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav>
           <NavIcon to="#">
-            <FaIcons.FaBars />
+            <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
         </Nav>
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
             <NavIcon to="#">
-              <AiIcons.AiOutlineClose />
+              <AiIcons.AiOutlineClose onClick={showSidebar} />
             </NavIcon>
             {SidebarData.map((title, path, subNav) => {
               return (
@@ -74,7 +77,7 @@ const NavIcon = styled(Link)`
 const SidebarNav = styled.nav`
   background: #15171c;
   width: 250px;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   position: fixed;
@@ -82,6 +85,7 @@ const SidebarNav = styled.nav`
   left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
   transition: 350ms;
   z-index: 10;
+  overflow-y: auto;
 `;
 
 const SidebarWrap = styled.div`
