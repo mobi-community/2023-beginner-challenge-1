@@ -1,9 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export default function Sidebar() {
     const listRef = useRef({});
+    // 추가기능 : [product] 메뉴의 하위 탭을 클릭하면 [sign up] 메뉴 토글이 닫히는 로직
+    const location = useLocation();
+	const PathNameArr = location.pathname.split('/');
+	const currentMenu = PathNameArr[1];
+    //
     const {prod, user} = useParams();
     const [sideMenu, setSideMenu] = useState([
         {
@@ -27,22 +32,24 @@ export default function Sidebar() {
     useEffect(()=> {
         for(let i=0; i<sideMenu.length; i++) {
             listRef.current[i].style.maxHeight = '0';
+            // 추가기능 : [product] 메뉴의 하위 탭을 클릭하면 [sign up] 메뉴 토글이 닫히는 로직
+            // if(currentMenu === null) {
+            //     listRef.current[i].style.maxHeight = '0';
+            // }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(()=> {
-        for(let i=0; i<sideMenu.length; i++) {
-            if(sideMenu[i].children.includes(prod || user)) {
-                const style = listRef.current[i].style;
-                style.maxHeight =  `${listRef.current[i].scrollHeight}px`;
-
-                let copiedMenu = [...sideMenu];
-                copiedMenu[i].isOpen = true;
-                setSideMenu(copiedMenu);
-
+        const newButtonStateMenu = sideMenu.map((item, idx) => {
+            if(item.children.includes(prod || user)) {
+                const style = listRef.current[idx].style;
+                style.maxHeight =  `${listRef.current[idx].scrollHeight}px`;
+                return {...item, isOpen: true}
             }
-        }
+            return { ...item, isOpen: false}
+        })
+        setSideMenu(newButtonStateMenu)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [prod, user]);
 
