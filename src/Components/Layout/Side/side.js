@@ -83,6 +83,17 @@ const ListMenuWrap = styled.ul`
   list-style: none;
   margin-left: 40px;
   margin-top: 20px;
+  @keyframes dropdown {
+    0% {
+      transform: translateY(-50%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  animation: dropdown 1s ease;
+  animation-duration: 0.4s;
+  animation-timing-function: ease;
 `;
 
 const ListMenu = styled.li`
