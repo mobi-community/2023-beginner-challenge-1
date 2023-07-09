@@ -4,11 +4,9 @@ import { styled } from 'styled-components';
 
 export default function Sidebar() {
     const listRef = useRef({});
-    // 추가기능 : [product] 메뉴의 하위 탭을 클릭하면 [sign up] 메뉴 토글이 닫히는 로직
     const location = useLocation();
 	const PathNameArr = location.pathname.split('/');
 	const currentMenu = PathNameArr[1];
-    //
     const {prod, user} = useParams();
     const [sideMenu, setSideMenu] = useState([
         {
@@ -32,13 +30,17 @@ export default function Sidebar() {
     useEffect(()=> {
         for(let i=0; i<sideMenu.length; i++) {
             listRef.current[i].style.maxHeight = '0';
+        
             // 추가기능 : [product] 메뉴의 하위 탭을 클릭하면 [sign up] 메뉴 토글이 닫히는 로직
-            // if(currentMenu === null) {
-            //     listRef.current[i].style.maxHeight = '0';
-            // }
+            if(sideMenu[i].isOpen === true) {
+                listRef.current[i].style.maxHeight = '0';
+                let copiedMenu = [...sideMenu];
+                copiedMenu[i].isOpen = false;
+                setSideMenu(copiedMenu);
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [currentMenu]);
 
     useEffect(()=> {
         for(let i=0; i<sideMenu.length; i++) {
@@ -51,7 +53,7 @@ export default function Sidebar() {
                 setSideMenu(copiedMenu);
             }
         }
-
+        // 리팩터링 시도 중
         // const newButtonStateMenu = sideMenu.map((item, idx) => {
         //     if(item.children.includes(prod || user)) {
         //         const style = listRef.current[idx].style;
