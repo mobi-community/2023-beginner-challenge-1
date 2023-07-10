@@ -32,10 +32,6 @@ const Down = () => {
 };
 export default Down;
 
-const Container = styled.div`
-  display: flex;
-`;
-
 const Button = styled.button`
   width: 100px;
   height: 28px;

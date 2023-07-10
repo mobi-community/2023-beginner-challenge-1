@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const Upside = () => {
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
+  localStorage.setItem("data", JSON.stringify(show));
+
+  useEffect(() => {
+    const saveData = localStorage.getItem("data");
+    console.log(saveData);
+    setShow(saveData);
+  }, []);
+
   const [data, setData] = useState([
     {
       id: 1,
@@ -81,15 +91,14 @@ const Upside = () => {
           <Button
             onClick={() => {
               navigate(`down/${data.id}`);
+              setShow(!show);
             }}
           >
             {data.title}
           </Button>
         ))}
       </div>
-      <div>
-        <Outlet context={{ data }} />
-      </div>
+      <div>{show && <Outlet context={{ data }} />}</div>
     </>
   );
 };
