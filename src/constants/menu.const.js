@@ -73,3 +73,13 @@ export const MENU = [
     ],
   },
 ]
+
+export const getTitleNum = () => {
+  let count = 0
+
+  for (const category of MENU) {
+    count += category.items.length
+  }
+
+  return count
+}

@@ -3,29 +3,29 @@ import {
   HoverBoxCSS,
   RotateAnimation,
 } from '../../../../styles/common'
-import { useLocation, useNavigate } from 'react-router'
 
 import Icons from '../../../Icons/Icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { styled } from 'styled-components'
-import { useState } from 'react'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
-export default function MenuItem({ item }) {
+export default function MenuItem({ item, isToggled, handleToggle, nowTitle }) {
   const { icons, title, url, contents } = item
-
-  const location = useLocation()
-  const nowTitle = location.pathname.split('/')[1] // 현재 url 상 title ( '' | 'user' | 'order' | 'stock' )
-  const isNowTitle = url === nowTitle
 
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const [isOpenToggle, setIsOpenToggle] = useState(isNowTitle) // 현재 title과 일치하다면 토굴이 처음부터 열려있도록
+
+  useEffect(() => {
+    if (nowTitle === url && !isToggled) handleToggle()
+  }, [nowTitle])
 
   const onClickTitle = () => {
     if (contents.length === 0) {
       return navigate(url)
     }
-    setIsOpenToggle((prev) => !prev)
+    handleToggle()
   }
 
   const onClickPage = (path) => {
@@ -42,13 +42,13 @@ export default function MenuItem({ item }) {
         {contents.length > 0 && (
           <S.AnimatedIcons
             name={faChevronDown}
-            isopen={isOpenToggle}
+            isopen={isToggled}
             size='2xs'
           />
         )}
       </S.ItemWrap>
       <S.ContentWrap>
-        {isOpenToggle &&
+        {isToggled &&
           contents.map(({ page, path }) => (
             <S.Content
               key={path}
