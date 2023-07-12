@@ -1,12 +1,8 @@
-import { useLocation } from 'react-router'
-import { styled } from 'styled-components'
 import { MENU } from '../../../../constants/menu.const'
 import MenuItem from './Item'
+import { styled } from 'styled-components'
 
 export default function Menu() {
-  const location = useLocation()
-  const nowTitle = location.pathname.split('/')[1] // 현재 url 상 title ( '' | 'user' | 'order' | 'stock' )
-
   return (
     <S.Wrapper>
       <S.Container>
@@ -17,7 +13,6 @@ export default function Menu() {
               <MenuItem
                 key={item.title}
                 item={item}
-                isNowTitle={nowTitle === item.url}
               />
             ))}
           </div>

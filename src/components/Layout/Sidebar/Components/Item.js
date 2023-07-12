@@ -1,17 +1,21 @@
-import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router'
 import {
   FlexCenterCSS,
   HoverBoxCSS,
   RotateAnimation,
 } from '../../../../styles/common'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router'
 
+import Icons from '../../../Icons/Icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { styled } from 'styled-components'
-import Icons from '../../../Icons/Icons'
 
-export default function MenuItem({ item, isNowTitle }) {
+export default function MenuItem({ item }) {
   const { icons, title, url, contents } = item
+
+  const location = useLocation()
+  const nowTitle = location.pathname.split('/')[1] // 현재 url 상 title ( '' | 'user' | 'order' | 'stock' )
+  const isNowTitle = url === nowTitle
 
   const navigate = useNavigate()
   const { pathname } = useLocation()
