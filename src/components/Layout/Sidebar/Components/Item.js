@@ -3,12 +3,12 @@ import {
   HoverBoxCSS,
   RotateAnimation,
 } from '../../../../styles/common'
-import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 
 import Icons from '../../../Icons/Icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { styled } from 'styled-components'
+import { useState } from 'react'
 
 export default function MenuItem({ item }) {
   const { icons, title, url, contents } = item
@@ -20,10 +20,6 @@ export default function MenuItem({ item }) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const [isOpenToggle, setIsOpenToggle] = useState(isNowTitle) // 현재 title과 일치하다면 토굴이 처음부터 열려있도록
-
-  useEffect(() => {
-    setIsOpenToggle(isNowTitle)
-  }, [isNowTitle])
 
   const onClickTitle = () => {
     if (contents.length === 0) {
